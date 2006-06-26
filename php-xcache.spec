@@ -2,6 +2,7 @@
 %define		_sysconfdir	/etc/php
 %define		extensionsdir	%(php-config --extension-dir 2>/dev/null)
 Summary:	%{_modname} - PHP opcode cacher
+Summary(pl):	%{_modname} - buforowanie opcodów PHP
 Name:		php-%{_modname}
 Version:	1.0
 Release:	0.4
@@ -20,6 +21,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 XCache is a fast, stable PHP opcode cacher that has been tested and is
 now running on production servers under high load.
+
+%description -l pl
+XCache to szybkie, stabilne buforowanie opcodów PHP, przetestowane i
+dzia³aj±ce na produkcyjnych serwerach o du¿ym obci±¿eniu.
 
 %prep
 %setup -q -n xcache
