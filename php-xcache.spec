@@ -4,13 +4,13 @@
 Summary:	%{_modname} - PHP opcode cacher
 Summary(pl):	%{_modname} - buforowanie opcodów PHP
 Name:		php-%{_modname}
-Version:	1.0
-Release:	0.4
+Version:	1.2.0
+Release:	0.1
 License:	BSD
 Group:		Development/Languages/PHP
 URL:		http://trac.lighttpd.net/xcache/
-Source0:	http://210.51.190.228/pub/XCache/Releases/xcache-%{version}.tar.gz
-# Source0-md5:	a4e2ff36f16b096f24d3edd9b6ab411b
+Source0:	http://210.51.190.228/pub/XCache/rc/1.2.0-rc1/xcache-%{version}-rc1.tar.bz2
+# Source0-md5:	a518400a879d8904771867b9f50a650d
 BuildRequires:	php-devel >= 3:5.0
 BuildRequires:	rpmbuild(macros) >= 1.254
 BuildRequires:	sed >= 4.0
