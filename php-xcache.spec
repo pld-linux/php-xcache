@@ -1,6 +1,6 @@
 %define		_modname	xcache
 Summary:	%{_modname} - PHP opcode cacher
-Summary(pl.UTF-8):   %{_modname} - buforowanie opcodów PHP
+Summary(pl.UTF-8):	%{_modname} - buforowanie opcodów PHP
 Name:		php-%{_modname}
 Version:	1.2.0
 Release:	0.1
