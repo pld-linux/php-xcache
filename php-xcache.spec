@@ -9,6 +9,7 @@ Group:		Development/Languages/PHP
 URL:		http://xcache.lighttpd.net/
 Source0:	http://210.51.190.228/pub/XCache/Releases/xcache-%{version}.tar.bz2
 # Source0-md5:	ffeaa9547037e098d9b041eb9741b51e
+Patch0:		xcache-m4.patch
 BuildRequires:	php-devel >= 3:5.1
 BuildRequires:	rpmbuild(macros) >= 1.344
 BuildRequires:	sed >= 4.0
@@ -26,6 +27,7 @@ działające na produkcyjnych serwerach o dużym obciążeniu.
 
 %prep
 %setup -q -n xcache
+%patch0 -p1
 %{__sed} -i -e '
 	s,zend_extension =.*,zend_extension = %{php_extensiondir}/xcache.so,
 	s,zend_extension_ts = .*,zend_extension_ts = %{php_extensiondir}/xcache.so,
