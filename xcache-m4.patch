@@ -1,0 +1,11 @@
+Index: trunk/processor/main.m4
+===================================================================
+--- trunk/processor/main.m4 (revision 311)
++++ trunk/processor/main.m4 (revision 342)
+@@ -8,5 +8,5 @@
+ 
+ dnl {{{ basic
+-define(`REDEF', `undefine(`$1') define(`$1', `$2')')
++define(`REDEF', `ifdef(`$1', `undefine(`$1')') define(`$1', `$2')')
+ define(`MAKE_MACRONAME', `translit(`$1', ` ():
+ ', `_____')')
