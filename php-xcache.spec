@@ -39,7 +39,7 @@ phpize
 	--enable-xcache \
 	--enable-xcache-optimizer \
 	--enable-xcache-coverager
-%{__make} -j1
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
