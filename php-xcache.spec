@@ -39,7 +39,7 @@ działające na produkcyjnych serwerach o dużym obciążeniu.
 cat > apache.conf <<'EOF'
 Alias /xcache %{_appdir}
 <Directory %{_appdir}>
-	Allow from all
+	Allow from 127.0.0.1
 </Directory>
 EOF
 
