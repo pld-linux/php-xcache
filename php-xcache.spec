@@ -3,12 +3,14 @@ Summary:	%{_modname} - PHP opcode cacher
 Summary(pl.UTF-8):	%{_modname} - buforowanie opcodów PHP
 Name:		php-%{_modname}
 Version:	1.2.1
-Release:	2
+Release:	3
 License:	BSD
 Group:		Development/Languages/PHP
 URL:		http://xcache.lighttpd.net/
 Source0:	http://xcache.lighttpd.net/pub/Releases/1.2.1/xcache-%{version}.tar.bz2
 # Source0-md5:	42133468871c573c397b8375dc8c19b6
+Source1:	xcache-apache.conf
+Source2:	xcache-lighttpd.conf
 BuildRequires:	php-devel >= 3:5.1
 BuildRequires:	rpmbuild(macros) >= 1.344
 BuildRequires:	sed >= 4.0
@@ -36,13 +38,6 @@ działające na produkcyjnych serwerach o dużym obciążeniu.
 	s,zend_extension_ts = .*,zend_extension_ts = %{php_extensiondir}/xcache.so,
 ' xcache.ini
 
-cat > apache.conf <<'EOF'
-Alias /xcache %{_appdir}
-<Directory %{_appdir}>
-	Allow from 127.0.0.1
-</Directory>
-EOF
-
 %build
 phpize
 %configure \
@@ -66,8 +61,9 @@ install -d $RPM_BUILD_ROOT%{_appdir}
 install xcache.ini $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{_modname}.ini
 install admin/* $RPM_BUILD_ROOT%{_appdir}
 
-install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
-install apache.conf $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
+install %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
+install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/lighttpd.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -91,6 +87,12 @@ fi
 
 %triggerun -- apache < 2.2.0, apache-base
 %webapp_unregister httpd %{_webapp}
+
+%triggerin -- lighttpd
+%webapp_register lighttpd %{_webapp}
+
+%triggerun -- lighttpd
+%webapp_unregister lighttpd %{_webapp}
 
 %files
 %defattr(644,root,root,755)
