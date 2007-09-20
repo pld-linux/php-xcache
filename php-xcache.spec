@@ -3,14 +3,14 @@ Summary:	%{_modname} - PHP opcode cacher
 Summary(pl.UTF-8):	%{_modname} - buforowanie opcodów PHP
 Name:		php-%{_modname}
 Version:	1.2.1
-Release:	3
+Release:	4
 License:	BSD
 Group:		Development/Languages/PHP
 URL:		http://xcache.lighttpd.net/
 Source0:	http://xcache.lighttpd.net/pub/Releases/1.2.1/xcache-%{version}.tar.bz2
 # Source0-md5:	42133468871c573c397b8375dc8c19b6
-Source1:	xcache-apache.conf
-Source2:	xcache-lighttpd.conf
+Source1:	%{_modname}-apache.conf
+Source2:	%{_modname}-lighttpd.conf
 BuildRequires:	php-devel >= 3:5.1
 BuildRequires:	rpmbuild(macros) >= 1.344
 BuildRequires:	sed >= 4.0
@@ -19,7 +19,7 @@ Requires:	php-common >= 4:5.0.4
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_webapps	/etc/webapps
-%define		_webapp		xcache
+%define		_webapp		%{_modname}
 %define		_sysconfdir	%{_webapps}/%{_webapp}
 %define		_appdir		%{_datadir}/%{_webapp}
 
@@ -32,7 +32,7 @@ XCache to szybkie, stabilne buforowanie opcodów PHP, przetestowane i
 działające na produkcyjnych serwerach o dużym obciążeniu.
 
 %prep
-%setup -q -n xcache-%{version}
+%setup -q -n %{_modname}-%{version}
 %{__sed} -i -e '
 	s,zend_extension =.*,zend_extension = %{php_extensiondir}/xcache.so,
 	s,zend_extension_ts = .*,zend_extension_ts = %{php_extensiondir}/xcache.so,
@@ -54,7 +54,7 @@ install -d $RPM_BUILD_ROOT{%{php_sysconfdir}/conf.d,%{_sysconfdir}}
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 
 # The cache directory where pre-compiled files will reside
-install -d $RPM_BUILD_ROOT/var/cache/php-xcache
+install -d $RPM_BUILD_ROOT/var/cache/php-%{_modname}
 install -d $RPM_BUILD_ROOT%{_appdir}
 
 # Drop in the bit of configuration
@@ -97,8 +97,10 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS README THANKS
+%dir %attr(750,root,http) %{_sysconfdir}
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/apache.conf
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd.conf
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/lighttpd.conf
 %config(noreplace) %verify(not md5 mtime size) %{php_sysconfdir}/conf.d/%{_modname}.ini
 %attr(755,root,root) %{php_extensiondir}/%{_modname}.so
 %{_appdir}
