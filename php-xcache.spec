@@ -3,7 +3,7 @@ Summary:	%{modname} - PHP opcode cacher
 Summary(pl.UTF-8):	%{modname} - buforowanie opcodów PHP
 Name:		php-%{modname}
 Version:	1.3.0
-Release:	2
+Release:	3
 License:	BSD
 Group:		Development/Languages/PHP
 URL:		http://xcache.lighttpd.net/
