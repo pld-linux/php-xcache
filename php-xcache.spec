@@ -3,7 +3,7 @@ Summary:	%{modname} - PHP opcode cacher
 Summary(pl.UTF-8):	%{modname} - buforowanie opcodów PHP
 Name:		php-%{modname}
 Version:	2.0.1
-Release:	2
+Release:	3
 License:	BSD
 Group:		Development/Languages/PHP
 URL:		http://xcache.lighttpd.net/
@@ -11,7 +11,8 @@ Source0:	http://xcache.lighttpd.net/pub/Releases/%{version}/xcache-%{version}.ta
 # Source0-md5:	d3bc9645dc1b084c1eb45cfc4d8e9ccc
 Source1:	%{modname}-apache.conf
 Source2:	%{modname}-lighttpd.conf
-BuildRequires:	php-devel >= 3:5.1
+Patch0:		ini.patch
+BuildRequires:	php-devel >= 4:5.2.17-8
 BuildRequires:	rpmbuild(macros) >= 1.344
 BuildRequires:	sed >= 4.0
 %{?requires_zend_extension}
@@ -46,9 +47,9 @@ More information you can find at %{url}.
 
 %prep
 %setup -q -n %{modname}-%{version}
-%{__sed} -i -e '
-	s,zend_extension =.*,zend_extension = %{php_extensiondir}/xcache.so,
-	s,zend_extension_ts = .*,zend_extension_ts = %{php_extensiondir}/xcache.so,
+%patch0 -p1
+%{__sed} -i.bak -e '
+	s,@extensiondir@,%{php_extensiondir},
 ' xcache.ini
 
 %build
