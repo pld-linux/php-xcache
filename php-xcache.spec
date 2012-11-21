@@ -2,13 +2,13 @@
 Summary:	%{modname} - PHP opcode cacher
 Summary(pl.UTF-8):	%{modname} - buforowanie opcodów PHP
 Name:		php-%{modname}
-Version:	2.0.1
-Release:	4
+Version:	3.0.0
+Release:	0.2
 License:	BSD
 Group:		Development/Languages/PHP
 URL:		http://xcache.lighttpd.net/
 Source0:	http://xcache.lighttpd.net/pub/Releases/%{version}/xcache-%{version}.tar.bz2
-# Source0-md5:	d3bc9645dc1b084c1eb45cfc4d8e9ccc
+# Source0-md5:	63be7c8b14ffc01babe5378111f13228
 Source1:	%{modname}-apache.conf
 Source2:	%{modname}-lighttpd.conf
 Patch0:		ini.patch
@@ -52,6 +52,8 @@ More information you can find at %{url}.
 	s,@extensiondir@,%{php_extensiondir},
 ' xcache.ini
 
+mv htdocs/{config.default.php,config.php}
+
 %build
 phpize
 %configure \
@@ -73,7 +75,7 @@ install -d $RPM_BUILD_ROOT%{_appdir}
 
 # Drop in the bit of configuration
 cp -p xcache.ini $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{modname}.ini
-cp -a admin/* $RPM_BUILD_ROOT%{_appdir}
+cp -a htdocs/* $RPM_BUILD_ROOT%{_appdir}
 
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
