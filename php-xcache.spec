@@ -5,7 +5,7 @@ Summary:	%{modname} - PHP opcode cacher
 Summary(pl.UTF-8):	%{modname} - buforowanie opcodów PHP
 Name:		php-%{modname}
 Version:	3.0.0
-Release:	0.6
+Release:	0.8
 License:	BSD
 Group:		Development/Languages/PHP
 URL:		http://xcache.lighttpd.net/
@@ -19,6 +19,7 @@ BuildRequires:	rpmbuild(macros) >= 1.344
 BuildRequires:	sed >= 4.0
 %{?requires_zend_extension}
 Requires:	php(core) >= 5.0.4
+Requires(triggerpostun):	sed >= 4.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_webapps	/etc/webapps
@@ -112,6 +113,9 @@ rm -rf $RPM_BUILD_ROOT
 if [ "$1" = 0 ]; then
 	%php_webserver_restart
 fi
+
+%triggerpostun -- %{name} < 3.0.0-0.8
+%{__sed} -i -e 's,zend_extension,extension,' %{php_sysconfdir}/conf.d/%{modname}.ini
 
 %triggerin web -- apache1 < 1.3.37-3, apache1-base
 %webapp_register apache %{_webapp}
