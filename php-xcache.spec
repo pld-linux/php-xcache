@@ -1,9 +1,10 @@
 # TODO
 # - verify %lang codes
+%define		php_name	php%{?php_suffix}
 %define		modname	xcache
 Summary:	%{modname} - PHP opcode cacher
 Summary(pl.UTF-8):	%{modname} - buforowanie opcodów PHP
-Name:		php-%{modname}
+Name:		%{php_name}-%{modname}
 Version:	3.0.1
 Release:	1
 License:	BSD
@@ -14,7 +15,7 @@ Source0:	http://xcache.lighttpd.net/pub/Releases/%{version}/xcache-%{version}.ta
 Source1:	%{modname}-apache.conf
 Source2:	%{modname}-lighttpd.conf
 Patch0:		config.patch
-BuildRequires:	php-devel >= 4:5.2.17-8
+BuildRequires:	%{php_name}-devel >= 4:5.2.17-8
 BuildRequires:	rpmbuild(macros) >= 1.344
 BuildRequires:	sed >= 4.0
 %{?requires_zend_extension}
