@@ -6,7 +6,7 @@ Summary:	%{modname} - PHP opcode cacher
 Summary(pl.UTF-8):	%{modname} - buforowanie opcodów PHP
 Name:		%{php_name}-%{modname}
 Version:	3.0.1
-Release:	1
+Release:	2
 License:	BSD
 Group:		Development/Languages/PHP
 URL:		http://xcache.lighttpd.net/
@@ -14,6 +14,7 @@ Source0:	http://xcache.lighttpd.net/pub/Releases/%{version}/xcache-%{version}.ta
 # Source0-md5:	45086010bc4f82f506c08be1c556941b
 Source1:	%{modname}-apache.conf
 Source2:	%{modname}-lighttpd.conf
+Source3:	%{modname}-httpd.conf
 Patch0:		config.patch
 BuildRequires:	%{php_name}-devel >= 4:5.2.17-8
 BuildRequires:	rpmbuild(macros) >= 1.344
@@ -42,6 +43,7 @@ Group:		Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	webapps
 Requires:	webserver(php) >= 5.0
+Conflicts:	apache-base < 2.4.0-1
 
 %description web
 Via this web interface script you can manage and view statistics of
@@ -101,7 +103,7 @@ ln -s %{_sysconfdir}/config.php $RPM_BUILD_ROOT%{_appdir}/config.php
 ln -s %{_sysconfdir}/cacher.config.php $RPM_BUILD_ROOT%{_appdir}/cacher/config.php
 ln -s %{_sysconfdir}/coverager.config.php $RPM_BUILD_ROOT%{_appdir}/coverager/config.php
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
-cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
+cp -p %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
 cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/lighttpd.conf
 
 %clean
@@ -124,10 +126,10 @@ fi
 %triggerun web -- apache1 < 1.3.37-3, apache1-base
 %webapp_unregister apache %{_webapp}
 
-%triggerin web -- apache < 2.2.0, apache-base
+%triggerin web -- apache-base
 %webapp_register httpd %{_webapp}
 
-%triggerun web -- apache < 2.2.0, apache-base
+%triggerun web -- apache-base
 %webapp_unregister httpd %{_webapp}
 
 %triggerin web -- lighttpd
