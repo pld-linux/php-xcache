@@ -43,6 +43,9 @@ Requires:	%{name} = %{version}-%{release}
 Requires:	webapps
 Requires:	webserver(access)
 Requires:	webserver(php) >= 5.0
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description web
 Via this web interface script you can manage and view statistics of
