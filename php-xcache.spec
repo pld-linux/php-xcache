@@ -9,13 +9,13 @@ Version:	3.0.1
 Release:	2
 License:	BSD
 Group:		Development/Languages/PHP
-URL:		http://xcache.lighttpd.net/
 Source0:	http://xcache.lighttpd.net/pub/Releases/%{version}/xcache-%{version}.tar.bz2
 # Source0-md5:	45086010bc4f82f506c08be1c556941b
 Source1:	%{modname}-apache.conf
 Source2:	%{modname}-lighttpd.conf
 Source3:	%{modname}-httpd.conf
 Patch0:		config.patch
+URL:		http://xcache.lighttpd.net/
 BuildRequires:	%{php_name}-devel >= 4:5.2.17-8
 BuildRequires:	rpmbuild(macros) >= 1.344
 BuildRequires:	sed >= 4.0
