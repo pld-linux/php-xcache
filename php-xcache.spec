@@ -14,6 +14,7 @@ Source0:	http://xcache.lighttpd.net/pub/Releases/%{version}/xcache-%{version}.ta
 Source1:	%{modname}-apache.conf
 Source2:	%{modname}-lighttpd.conf
 Patch0:		config.patch
+Patch1:		ini-settings.patch
 URL:		http://xcache.lighttpd.net/
 BuildRequires:	%{php_name}-devel >= 4:5.2.17-8
 BuildRequires:	rpmbuild(macros) >= 1.344
@@ -56,6 +57,7 @@ More information you can find at %{url}.
 %prep
 %setup -q -n %{modname}-%{version}
 %patch0 -p1
+%patch1 -p1
 %{__sed} -i.bak -e '
 	s,@extensiondir@,%{php_extensiondir},
 ' xcache.ini

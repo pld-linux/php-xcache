@@ -1,0 +1,11 @@
+--- xcache-3.0.2/htdocs/common/common.php~	2013-10-30 13:57:53.030784918 +0200
++++ xcache-3.0.2/htdocs/common/common.php	2013-10-30 13:32:28.000000000 +0200
+@@ -234,8 +234,6 @@
+ 	return $list_html;
+ }
+ 
+-error_reporting(E_ALL);
+-ini_set('display_errors', 'On');
+ define('REQUEST_TIME', time());
+ 
+ if (function_exists('get_magic_quotes_gpc') && @get_magic_quotes_gpc()) {
