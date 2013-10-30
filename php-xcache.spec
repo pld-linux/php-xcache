@@ -166,6 +166,7 @@ fi
 
 %dir %{_appdir}/common
 %{_appdir}/common/*.css
+%{_appdir}/common/*.js
 %{_appdir}/common/*.php
 %{_appdir}/common/*.png
 %dir %{_appdir}/common/lang
@@ -175,7 +176,6 @@ fi
 
 %dir %{_appdir}/cacher
 %{_appdir}/cacher/*.css
-%{_appdir}/cacher/*.js
 %{_appdir}/cacher/*.php
 %{_appdir}/cacher/sub
 %dir %{_appdir}/cacher/lang
