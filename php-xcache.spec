@@ -6,7 +6,7 @@
 
 # don't build for php53
 %if 0%{?_pld_builder:1} && "%{?php_suffix}" != "55"
-%undefine	web
+%undefine	with_web
 %endif
 
 %define		php_name	php%{?php_suffix}
@@ -15,7 +15,7 @@ Summary:	%{modname} - PHP opcode cacher
 Summary(pl.UTF-8):	%{modname} - buforowanie opcodów PHP
 Name:		%{php_name}-%{modname}
 Version:	3.1.0
-Release:	3
+Release:	4
 License:	BSD
 Group:		Development/Languages/PHP
 Source0:	http://xcache.lighttpd.net/pub/Releases/%{version}/xcache-%{version}.tar.bz2
