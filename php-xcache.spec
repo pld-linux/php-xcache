@@ -1,12 +1,21 @@
 # TODO
 # - verify %lang codes
+#
+# Conditional build:
+%bcond_without	web		# make web package
+
+# don't build for php53
+%if 0%{?_pld_builder:1} && "%{?php_suffix}" != "55"
+%undefine	web
+%endif
+
 %define		php_name	php%{?php_suffix}
 %define		modname	xcache
 Summary:	%{modname} - PHP opcode cacher
 Summary(pl.UTF-8):	%{modname} - buforowanie opcodów PHP
 Name:		%{php_name}-%{modname}
 Version:	3.1.0
-Release:	2
+Release:	3
 License:	BSD
 Group:		Development/Languages/PHP
 Source0:	http://xcache.lighttpd.net/pub/Releases/%{version}/xcache-%{version}.tar.bz2
@@ -95,7 +104,7 @@ cp -p xcache.ini $RPM_BUILD_ROOT%{php_sysconfdir}/conf.d/%{modname}.ini
 # The cache directory where pre-compiled files will reside
 install -d $RPM_BUILD_ROOT/var/cache/php-%{modname}
 
-# web app
+%if %{with web}
 install -d $RPM_BUILD_ROOT{%{_appdir},%{_sysconfdir}}
 cp -a htdocs/* $RPM_BUILD_ROOT%{_appdir}
 %{__rm} $RPM_BUILD_ROOT%{_appdir}/diagnosis/lang/*.po
@@ -109,6 +118,7 @@ ln -s %{_sysconfdir}/coverager.config.php $RPM_BUILD_ROOT%{_appdir}/coverager/co
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/apache.conf
 cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/httpd.conf
 cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/lighttpd.conf
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -151,6 +161,7 @@ fi
 # XXX: what for this dir is used?
 %dir %attr(775,root,http) /var/cache/php-xcache
 
+%if %{with web}
 %files web
 %defattr(644,root,root,755)
 %doc config*.example.php
@@ -198,3 +209,4 @@ fi
 %{_appdir}/diagnosis/lang/en.php
 %lang(zh_CN) %{_appdir}/diagnosis/lang/zh-simplified.php
 %lang(zh_CN) %{_appdir}/diagnosis/lang/zh-traditional.php
+%endif
