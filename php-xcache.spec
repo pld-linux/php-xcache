@@ -15,7 +15,7 @@ Summary:	%{modname} - PHP opcode cacher
 Summary(pl.UTF-8):	%{modname} - buforowanie opcodów PHP
 Name:		%{php_name}-%{modname}
 Version:	3.1.0
-Release:	4
+Release:	5
 License:	BSD
 Group:		Development/Languages/PHP
 Source0:	http://xcache.lighttpd.net/pub/Releases/%{version}/xcache-%{version}.tar.bz2
@@ -31,6 +31,7 @@ BuildRequires:	sed >= 4.0
 %{?requires_zend_extension}
 Requires:	php(core) >= 5.0.4
 Requires(triggerpostun):	sed >= 4.0
+Obsoletes:	php-xcache < 3.1.0-3
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_webapps	/etc/webapps
