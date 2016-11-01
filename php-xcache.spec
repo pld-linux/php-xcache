@@ -15,7 +15,7 @@ Summary:	%{modname} - PHP opcode cacher
 Summary(pl.UTF-8):	%{modname} - buforowanie opcodów PHP
 Name:		%{php_name}-%{modname}
 Version:	3.1.2
-Release:	1
+Release:	2
 License:	BSD
 Group:		Development/Languages/PHP
 Source0:	http://xcache.lighttpd.net/pub/Releases/%{version}/xcache-%{version}.tar.bz2
@@ -51,7 +51,7 @@ działające na produkcyjnych serwerach o dużym obciążeniu.
 %package -n php-xcache-web
 Summary:	WEB interface for xCache
 Group:		Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	php(xcache) = %{version}
 Requires:	webapps
 Requires:	webserver(access)
 Requires:	webserver(php) >= 5.0
