@@ -59,9 +59,7 @@ Requires:	webapps
 Requires:	webserver(access)
 Requires:	webserver(php) >= 5.0
 Obsoletes:	php55-xcache-web < 3.1.0-5
-%if "%{_rpmversion}" >= "5"
 BuildArch:	noarch
-%endif
 
 %description -n php-xcache-web
 Via this web interface script you can manage and view statistics of
